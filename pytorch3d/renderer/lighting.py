@@ -260,13 +260,13 @@ class PointLights(TensorProperties):
 
     def diffuse(self, normals, points) -> torch.Tensor:
         # pyre-fixme[16]: `PointLights` has no attribute `location`.
-        direction = self.location - points
+        direction = self.location[:, None, None, None] - points
         # pyre-fixme[16]: `PointLights` has no attribute `diffuse_color`.
         return diffuse(normals=normals, color=self.diffuse_color, direction=direction)
 
     def specular(self, normals, points, camera_position, shininess) -> torch.Tensor:
         # pyre-fixme[16]: `PointLights` has no attribute `location`.
-        direction = self.location - points
+        direction = self.location[:, None, None, None] - points
         return specular(
             points=points,
             normals=normals,
