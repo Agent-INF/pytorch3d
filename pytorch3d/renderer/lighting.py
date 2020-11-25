@@ -248,11 +248,11 @@ class PointLights(TensorProperties):
         return super().clone(other)
 
     def diffuse(self, normals, points) -> torch.Tensor:
-        direction = self.location - points
+        direction = self.location[:, None, None, None] - points
         return diffuse(normals=normals, color=self.diffuse_color, direction=direction)
 
     def specular(self, normals, points, camera_position, shininess) -> torch.Tensor:
-        direction = self.location - points
+        direction = self.location[:, None, None, None] - points
         return specular(
             points=points,
             normals=normals,

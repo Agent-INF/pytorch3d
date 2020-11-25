@@ -79,7 +79,7 @@ def phong_shading(
     ambient, diffuse, specular = _apply_lighting(
         pixel_coords, pixel_normals, lights, cameras, materials
     )
-    colors = (ambient + diffuse) * texels + specular
+    colors = (ambient[:, None, None, None] + diffuse) * texels + specular
     return colors
 
 
